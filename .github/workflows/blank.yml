@@ -126,7 +126,7 @@ jobs:
                 "password": "${{ secrets.ANYPOINT_PASSWORD }}"
           }]
           
-          #Downloads artifact from previous step
+         
     - uses: actions/download-artifact@v3
       with:
         name: muleapp
