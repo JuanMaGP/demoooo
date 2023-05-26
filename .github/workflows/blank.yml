@@ -107,4 +107,4 @@ jobs:
         AUTHOR: "Juan Manuel"
       run: |
         artifactName=$(ls *.jar | head -1)
-        mvn clean deploy -DmuleDeploy -Dmule.artifact=muleapp.jar -Dcicd.welcome.message="Hola Mundo" -Denvironment=“sandbox”
+        mvn clean deploy -DmuleDeploy -Dmule.artifact=muleapp.jar -Dcicd.welcome.message="Hola Mundo" -Denvironment="sandbox"
