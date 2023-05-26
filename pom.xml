@@ -5,7 +5,7 @@
 	<!-- Maven coordinates -->
 	<groupId>1d2e1823-d11d-489d-bd04-4016b7730965</groupId>
 	<artifactId>hello-world-jmgp</artifactId>
-	<version>1.0.5</version>
+	<version>1.0.6</version>
 	<packaging>mule-application</packaging>
 
 	<name>hello-world-jmgp</name>
@@ -51,7 +51,7 @@
 								<cicd.welcome.message>${cicd.welcome.message}</cicd.welcome.message>
 							</properties>
 							<secureProperties>
-								<testSecure>TEST</testSecure>
+								<cicd.welcome.messecure>${cicd.welcome.message}</cicd.welcome.messecure>
 							</secureProperties>
 							<deploymentSettings>
 								<http>
