@@ -63,3 +63,49 @@ jobs:
       # maven build command, could add other flags if needed
       - name: Build
         run: mvn -B clean package
+        
+        # save the produced jar file to be deployed later    
+      - uses: actions/upload-artifact@v3
+        with:
+            name: muleapp
+            path: target/*.jar
+        
+        
+# Steps for executing the deployment against Cloudhub2.0 Anypoint Platform
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:    
+    - uses: actions/checkout@v3
+    - uses: actions/cache@v3
+      with:
+        path: ~/.m2/repository
+        key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+        restore-keys: |
+          ${{ runner.os }}-maven-
+          
+    - uses: s4u/maven-settings-action@v2.6.0
+      with:
+        servers: |
+          [{
+              "id": "anypoint-exchange-v3",
+              "username": "${{ secrets.ANYPOINT_USERNAME }}",
+              "password": "${{ secrets.ANYPOINT_PASSWORD }}"
+          },
+          {
+                "id": "cloudhub-deploy",
+                "username": "${{ secrets.ANYPOINT_USERNAME }}",
+                "password": "${{ secrets.ANYPOINT_PASSWORD }}"
+          }]
+          
+          #Downloads artifact from previous step
+    - uses: actions/download-artifact@v3
+      with:
+        name: muleapp
+        
+    - name: Deploy to CloudHub 2
+      env:
+        AUTHOR: "Juan Manuel"
+      run: |
+        artifactName=$(ls *.jar | head -1)
+        mvn clean deploy -DmuleDeploy -Dmule.artifact=muleapp.jar -Dcicd.welcome.message="Hola Mundo" -Denvironment=“sandbox”
