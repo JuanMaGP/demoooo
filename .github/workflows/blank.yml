@@ -133,7 +133,7 @@ jobs:
         
     - name: Deploy to CloudHub 2
       env:
-        AUTHOR: "Juan Manuel"
+        AUTHOR: "Andres Morales"
       run: |
         artifactName=$(ls *.jar | head -1)
-        mvn clean deploy -DmuleDeploy -Dmule.artifact=muleapp.jar -Dcicd.welcome.message="Hola Mundo v2" -Denvironment="sandbox
+        mvn clean deploy -DmuleDeploy -Dmule.artifact=muleapp.jar -Dcicd.welcome.message="Hola Mundo" -Denvironment="sandbox
